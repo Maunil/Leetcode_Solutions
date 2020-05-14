@@ -29,14 +29,12 @@ class MyQueue:
         """
         Removes the element from in front of queue and returns that element.
         """
-        ans = self.stack_alter()
-        self.S2.pop() 
-        length = len(self.S2)
+        if len(self.S2) > 0:
+            ans = self.S2[-1]
+        else:        
+            ans = self.stack_alter()
         
-        for i in range(length):
-            self.S1.append(self.S2[-1])
-            self.S2.pop()
-        
+        self.S2.pop()
         return ans
         
 
@@ -44,21 +42,18 @@ class MyQueue:
         """
         Get the front element.
         """
-        ans = self.stack_alter()
-        length = len(self.S2)
+        if len(self.S2) > 0:
+            ans = self.S2[-1]
+        else:        
+            ans = self.stack_alter()
 
-        for i in range(length):
-            self.S1.append(self.S2[-1])
-            self.S2.pop()
-        
         return ans
                 
-
     def empty(self) -> bool:
         """
         Returns whether the queue is empty.
         """
-        return len(self.S1) == 0
+        return len(self.S1) == 0 and len(self.S2) == 0
 
 
 # Your MyQueue object will be instantiated and called as such:
