@@ -4,6 +4,7 @@ class Solution:
             return 0
         
         matrix = []
+        ans = ""
         
         for i in range(len(text1)):
             dummy = []
@@ -24,8 +25,17 @@ class Solution:
                         dummy.append(matrix[i-1][j-1] + 1)
                     else:
                         dummy.append(val)
-                
+                        
             matrix.append(dummy)
         
+        #To print the subsequence string 
+        prev = 0 
+        for i in range (len(text1)):
+            for j in range(len(text2)):
+                if matrix[i][j] > prev:
+                    ans += text1[i]
+                    prev = matrix[i][j]
+        
+        print (ans)
         return matrix[i][j]
         
