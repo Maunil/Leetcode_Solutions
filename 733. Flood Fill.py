@@ -1,28 +1,20 @@
 class Solution:
     
-    def help(self, image, i , j, color, visit, s_val):
-        if (i<0 or i>=len(image)) or (j<0 or j>=len(image[0])) or visit[i][j] == True or image[i][j] != s_val:
+    def help(self, image, r, c, newcolor, oldcolor):
+        if r < 0 or c < 0 or r >= len(image) or c >= len(image[0]) or image[r][c] != oldcolor:
             return 
         
-        image[i][j] = color    
-        visit[i][j] = True 
-            
-        self.help(image, i, j + 1, color, visit, s_val)
-        self.help(image, i, j - 1, color, visit, s_val)
-        self.help(image, i+1, j, color, visit, s_val)
-        self.help(image, i-1, j, color, visit, s_val)
+        image[r][c] = newcolor 
         
-    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
-        visit = []
-        for i in range(len(image)):
-            dummy = []
-            for j in range(len(image[0])):
-                dummy.append(False)
-        
-            visit.append(dummy)
-            
-        self.help(image, sr, sc, newColor, visit, image[sr][sc])
-        return image 
+        self.help(image, r+1, c, newcolor, oldcolor)
+        self.help(image, r, c+1, newcolor, oldcolor)
+        self.help(image, r, c-1, newcolor, oldcolor)
+        self.help(image, r-1, c, newcolor, oldcolor)
+
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:     
+        if sr < len(image) and sc < len(image[0]) and newColor == image[sr][sc]:
+            return image 
                     
-                
+        self.help(image, sr, sc, newColor, image[sr][sc])
         
+        return image 
